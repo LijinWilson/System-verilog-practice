@@ -58,3 +58,35 @@ endmodule
     // -------------------------- OUTPUT --------------------------
 //     # KERNEL: Rectangle area = 20
 // # KERNEL: Circle area = 27
+
+    //---------------------------- VIRTUAL CLASS ----------------------------
+
+/*
+- we cannot instantiate the virtual class using new() keyword;
+- it can be extended to another class using inheritance.
+*/
+
+virtual class animal;
+  function void eat();
+    $display("Animal eats!.. ");
+  endfunction
+endclass
+
+class dog extends animal;
+  function bark();
+    $display("Dog Barks!..");
+  endfunction
+endclass
+
+
+module sample();
+  
+  dog d;
+  
+  initial
+    begin
+      d = new();
+      d.bark();
+      d.eat();
+    end
+endmodule
