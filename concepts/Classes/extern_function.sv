@@ -6,6 +6,7 @@
       function void class_name::function_name();
         statements;
       endfunction
+- Change in argument name between method declaration and method definition will lead to a compilation error.
 */
 /*
 - An external function derived inside the class;
