@@ -9,5 +9,31 @@
     - randc : example randc bit [3:0] addr; It won't repeat the probability values until completing 0 to 15;
 - Method: randomize();
     - randomize the variable inside the object; Example : object.randomize();
+    - this is mandatory to declare for getting random value;
     
 */
+
+class random_class;
+  rand bit [2:0] addr_rand;
+  randc bit [2:0] addr_randc;
+  
+  extern virtual function int sum(int a, int b);
+  
+endclass
+    
+//     External class
+    function int random_class::sum(int a, int b);
+        return a + b;
+    endfunction
+
+module rand_module();
+  initial
+    begin
+      random_class c = new();
+      repeat(10)
+        begin
+          c.randomize();
+          $display("Random variable generator rand = %0d | randc = %0d | Sum = %0d", c.addr_rand, c.addr_randc, c.sum(c.addr_rand, c.addr_randc));
+        end
+    end
+endmodule
