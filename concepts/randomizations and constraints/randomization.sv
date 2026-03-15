@@ -37,3 +37,17 @@ module rand_module();
         end
     end
 endmodule
+
+// -------------------------- OUTPUT --------------------------
+/*
+# KERNEL: Random variable generator rand = 7 | randc = 0 | Sum = 7
+# KERNEL: Random variable generator rand = 1 | randc = 1 | Sum = 2
+# KERNEL: Random variable generator rand = 3 | randc = 7 | Sum = 10
+# KERNEL: Random variable generator rand = 3 | randc = 2 | Sum = 5
+# KERNEL: Random variable generator rand = 0 | randc = 4 | Sum = 4
+# KERNEL: Random variable generator rand = 6 | randc = 6 | Sum = 12
+# KERNEL: Random variable generator rand = 3 | randc = 3 | Sum = 6
+# KERNEL: Random variable generator rand = 5 | randc = 5 | Sum = 10
+# KERNEL: Random variable generator rand = 0 | randc = 6 | Sum = 6
+# KERNEL: Random variable generator rand = 0 | randc = 3 | Sum = 3      
+*/
