@@ -47,13 +47,12 @@ module constraints_rand_module();
 endmodule
 
 // ----------------------- OUTPUT -----------------------
-/*
 # KERNEL: addr = 15
 # KERNEL: addr = 12
 # KERNEL: addr = 14
 # KERNEL: addr = 8
 # KERNEL: addr = 8
-*/
+
 
 // ----------------------- CONSTRAINTS DEFINED OUTSIDE CLASS -----------------------
 class constraints_rand;
@@ -82,10 +81,70 @@ module constraints_rand_module();
 endmodule
 
 // ----------------------- OUTPUT -----------------------
-/*
 # KERNEL: addr = 15
 # KERNEL: addr = 12
 # KERNEL: addr = 14
 # KERNEL: addr = 8
 # KERNEL: addr = 8
-*/
+
+
+// ------------------------------ CONSTRAINTS USING INHERITANCE PROPERTY -------------------------------
+// constraints using inheritance
+
+class packet;
+  rand bit [3:0] addr;
+//   here random value is between 5 to 15;
+  constraint adder_range {addr > 5;}
+endclass
+
+class packet_extnd extends packet;
+//   Here random value will be in between 0 to 5;
+  constraint adder_range {addr < 5;}
+endclass
+
+module constraint_mod();
+  initial
+    begin
+      
+      packet p = new();
+      packet_extnd pe = new();
+      
+      
+      $display("--------------------Parent Packet--------------------");
+      repeat(10)
+        begin
+          p.randomize();
+          $display("Packet random value: %0d", p.addr);
+        end
+      $display("--------------------Child Packet--------------------");
+      repeat(10)
+        begin
+          pe.randomize();
+          $display("Packet_extend random value: %0d", pe.addr);
+        end
+    end
+endmodule
+
+// OUTPUT
+# KERNEL: --------------------Parent Packet--------------------
+# KERNEL: Packet random value: 7
+# KERNEL: Packet random value: 15
+# KERNEL: Packet random value: 10
+# KERNEL: Packet random value: 12
+# KERNEL: Packet random value: 15
+# KERNEL: Packet random value: 7
+# KERNEL: Packet random value: 14
+# KERNEL: Packet random value: 12
+# KERNEL: Packet random value: 11
+# KERNEL: Packet random value: 12
+# KERNEL: --------------------Child Packet--------------------
+# KERNEL: Packet_extend random value: 0
+# KERNEL: Packet_extend random value: 0
+# KERNEL: Packet_extend random value: 2
+# KERNEL: Packet_extend random value: 0
+# KERNEL: Packet_extend random value: 1
+# KERNEL: Packet_extend random value: 1
+# KERNEL: Packet_extend random value: 1
+# KERNEL: Packet_extend random value: 0
+# KERNEL: Packet_extend random value: 2
+# KERNEL: Packet_extend random value: 1
