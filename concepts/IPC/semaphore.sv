@@ -55,7 +55,7 @@ module parking_slot();
 endmodule
 
 
-// ----------------------- OUTPUT -----------------------
+//                 OUTPUT 
 # KERNEL: -----------------------------------
 # KERNEL: 0 time car 1 arriving
 # KERNEL: 0 time car 1 parked
@@ -72,3 +72,74 @@ endmodule
 # KERNEL: 4 time car 4 parked
 # KERNEL: 5 time, car 3 leaving
 # KERNEL: 5 time, car 4 leaving
+
+
+// ----------------------------- EXAMPLE - 2 --------------------------------
+/*
+Statement.
+-> Their are 4 powerunit, 4 robots.
+-> Each robot need 2 power unit.
+-> Means 2 process/robot will run/work at a time.
+*/
+
+
+
+module semaphore_multi_key();
+  semaphore power_unit;
+  
+  initial
+    begin
+//       4 keys are avaialble
+      power_unit = new(4);
+      
+		fork
+//       robot(id, work_time);
+      		robot(1, 5);
+      		robot(2, 4);
+      		robot(3, 3);
+      		robot(4, 2);
+        join
+    end
+  
+//   Defining robot allocation
+  task automatic robot(int id, int run_time);
+    
+    $display("At time %0t, Robot %0d REQUESTED 2 power unit ", $time, id);
+//     each machine/bot need 2 power unit/KEYS
+    power_unit.get(2);
+    
+    $display("------------------------------------------------------------");
+    
+    $display("At time %0t, Robot %0d STARTED (GOT 2 UNIT)", $time, id);
+    #run_time;
+    
+    
+    $display("At time %0t, Robot %0d work FINISHED (LEAVES @ UNIT)", $time, id);
+    power_unit.put(2);
+//     disconnected the power unit after working, DUMP KEYS.
+    $display("------------------------------------------------------------");
+  endtask
+  
+endmodule
+
+//                 OUTPUT 
+# KERNEL: At time 0, Robot 1 REQUESTED 2 power unit 
+# KERNEL: ------------------------------------------------------------
+# KERNEL: At time 0, Robot 1 STARTED (GOT 2 UNIT)
+# KERNEL: At time 0, Robot 2 REQUESTED 2 power unit 
+# KERNEL: ------------------------------------------------------------
+# KERNEL: At time 0, Robot 2 STARTED (GOT 2 UNIT)
+# KERNEL: At time 0, Robot 3 REQUESTED 2 power unit 
+# KERNEL: At time 0, Robot 4 REQUESTED 2 power unit 
+# KERNEL: At time 4, Robot 2 work FINISHED (LEAVES @ UNIT)
+# KERNEL: ------------------------------------------------------------
+# KERNEL: ------------------------------------------------------------
+# KERNEL: At time 4, Robot 3 STARTED (GOT 2 UNIT)
+# KERNEL: At time 5, Robot 1 work FINISHED (LEAVES @ UNIT)
+# KERNEL: ------------------------------------------------------------
+# KERNEL: ------------------------------------------------------------
+# KERNEL: At time 5, Robot 4 STARTED (GOT 2 UNIT)
+# KERNEL: At time 7, Robot 3 work FINISHED (LEAVES @ UNIT)
+# KERNEL: ------------------------------------------------------------
+# KERNEL: At time 7, Robot 4 work FINISHED (LEAVES @ UNIT)
+# KERNEL: ------------------------------------------------------------
