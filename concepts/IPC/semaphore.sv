@@ -8,6 +8,14 @@
 -> We have to get() key while entering store house and put() key while leaving from store house so other person can use it.
 */
 
+//     <------------------------ SYNTAX ------------------------>
+/*
+-> new(); Create a semaphore with a specified number of keys
+-> get();   Obtain one or more keys from the bucket
+-> put();   Return one or more keys into the bucket
+-> try_get(); Try to obtain one or more keys without blocking
+*/
+
 // parking slot booking and exiting
 module parking_slot();
   semaphore slot;
