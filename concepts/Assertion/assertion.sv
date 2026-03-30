@@ -83,3 +83,17 @@ endmodule
 # ASSERT: Error: ASRT_0301 testbench.sv(20): Immediate assert condition (a&&b) FAILED at time: 15ns, scope: asertion_ex
 # ASSERT: Error: ASRT_0301 testbench.sv(20): Immediate assert condition (a&&b) FAILED at time: 25ns, scope: asertion_ex
 # ASSERT: Error: ASRT_0301 testbench.sv(20): Immediate assert condition (a&&b) FAILED at time: 35ns, scope: asertion_ex
+
+
+
+// --------------------------------------- CONCURRENT ASSERTION --------------------------------------- 
+/*
+    -> It is evaluated only at clock tick.
+    -> 
+
+*/
+
+// ----------- SYNTAX ----------- 
+//      c_assert:  assert property(@(posedge clk) not(a && b));
+
+    
