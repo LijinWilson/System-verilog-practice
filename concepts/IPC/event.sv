@@ -18,7 +18,13 @@
             *  SHORT MEANING: Don't do anything, just wait until something happens.
             *  @event → wait for something to happen.
             *  ->event → something just happened.
-            *  You must start waiting (@event) before the event happens (->event)
+            *  You must start waiting (@event) before the event happens (->event).
+            *  [VIMP] The waiting process must execute the @ statement before the triggering process executes the trigger operator, ->.
+                -> Real Life Example.
+                    -  Case 1: Correct (Works)
+                        1) You stand ready and listen (@event → waiting)
+                        2) Teacher says “start” (->event → trigger)
+                        3) You hear it and begin  
     
         =>  WAIT OPERATOR
             *  @event → can miss the event if both happen at the same time
