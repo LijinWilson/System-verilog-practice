@@ -33,6 +33,40 @@
         =>  WAIT_ORDER OPERATOR
             *  wait_order() waits for multiple events to happen in a specific order
             *  If it not triggered in order it will not unblock the process and cause runtime error.
-    
-        
 */
+
+// >>>>>>>>>>>>>>>>>>>>> EXAMPLES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// >->->->->-    Example - 1 for @ OPERATOR
+module AT_eventOperator();
+  event ev_1;
+  
+  initial
+    begin
+      fork
+//         process - 1
+        begin
+          #40; $display("At %0t Triggering the event", $time);
+          ->ev_1;
+        end
+        
+//         Process - 2
+        begin
+          $display("At %0t Waiting for an event to trigger", $time);
+          @(ev_1.triggered)
+          $display("At %0t Event Triggered", $time);
+        end
+        
+      join
+    end
+endmodule
+
+/*
+        ->    PROCESS 1 and PROCESS 2 run at same time.
+        ->    Here @ operator get ready before the event get trigger.
+        ->    At 40'th second event and @ OPERATOR trigger at same time.
+*/
+
+// --------------------------- OUTPUT ------------------------------  
+# KERNEL: At 0 Waiting for an event to trigger
+# KERNEL: At 40 Triggering the event
+# KERNEL: At 40 Event Triggered
