@@ -106,3 +106,49 @@ endmodule
 # KERNEL: At 0 Triggering the event
 # KERNEL: At 0 Waiting for an event to trigger
 # KERNEL: At 0 Event Triggered
+
+//                 >->->->-> Example - 3 for WAIT_ORDER OPERATOR <-<-<-<-<
+
+    module AT_eventOperator();
+  event ev_1, ev_2, ev_3;
+  
+  initial
+    begin
+      fork
+//         Process - 1
+        begin
+          #2; $display("At %0t Triggering the event 1", $time);
+          ->ev_1;
+        end
+        
+//         Process - 2
+        begin
+          #4; $display("At %0t Triggering the event 2", $time);
+          ->ev_2;
+        end
+        
+//         Process - 3
+        begin
+          #6; $display("At %0t Triggering the event 3", $time);
+          ->ev_3;
+        end
+        	
+//         WAIT_ORDER OPERATOR
+        begin
+          $display("At %0t Waiting for an event to trigger", $time);
+          wait_order(ev_1, ev_2, ev_3)
+          $display("At %0t Events ev_1|ev_2|ev_3 Triggered in order", $time);
+          else 
+            $display("Event trigger not in order");
+        end
+        
+      join
+    end
+endmodule
+
+// -------------------------- OUTPUT ----------------------------------
+# KERNEL: At 0 Waiting for an event to trigger
+# KERNEL: At 2 Triggering the event 1
+# KERNEL: At 4 Triggering the event 2
+# KERNEL: At 6 Triggering the event 3
+# KERNEL: At 6 Events ev_1|ev_2|ev_3 Triggered in order
