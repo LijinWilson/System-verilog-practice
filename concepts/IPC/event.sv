@@ -35,8 +35,11 @@
             *  If it not triggered in order it will not unblock the process and cause runtime error.
 */
 
-// >>>>>>>>>>>>>>>>>>>>> EXAMPLES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-// >->->->->-    Example - 1 for @ OPERATOR
+//                                                >>>>>>>>>>>>>>>>>>>>> EXAMPLES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+//                 >->->->-> Example - 1 for @ OPERATOR <-<-<-<-<
+
 module AT_eventOperator();
   event ev_1;
   
@@ -70,3 +73,28 @@ endmodule
 # KERNEL: At 0 Waiting for an event to trigger
 # KERNEL: At 40 Triggering the event
 # KERNEL: At 40 Event Triggered
+
+//                 >->->->-> Example - 2 for WAIT OPERATOR <-<-<-<-<
+
+    module WAIT_eventOperator();
+  event ev_1;
+  
+  initial
+    begin
+      fork
+//         process - 1
+        begin
+          $display("At %0t Triggering the event", $time);
+          ->ev_1;
+        end
+        	
+//         Process - 2
+        begin
+          $display("At %0t Waiting for an event to trigger", $time);
+          wait(ev_1.triggered)
+          $display("At %0t Event Triggered", $time);
+        end
+        
+      join
+    end
+endmodule
