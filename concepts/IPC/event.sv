@@ -98,3 +98,11 @@ endmodule
       join
     end
 endmodule
+/*
+    - WAIT operator will resolve issue related with @ operator
+*/
+// --------------------------- OUTPUT ------------------------------  
+
+# KERNEL: At 0 Triggering the event
+# KERNEL: At 0 Waiting for an event to trigger
+# KERNEL: At 0 Event Triggered
