@@ -27,7 +27,28 @@
         * It is same as If-Else statements.
 
         SYNTAX: label assert(expression) action_block.
+    
+    
+    2. CONCURRENT ASSERTION
+        * It will check the condition of signal over the time.
+        * It will check now and what should happen next.
+        * It run parallel in design.
+        * 
 */
+
+/*
+Immediate:
+
+👉 “Is the light ON right now?”
+
+Concurrent:
+
+👉 “If I press switch → does light turn ON after 1 second?”
+
+You press switch now
+But you judge correctness later
+*/
+
     
 //   => ----------------------------- Example - 1 ------------------------------------
 module imm_assertion();
