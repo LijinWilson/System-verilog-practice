@@ -40,7 +40,42 @@ a: assert property(p);
 
 // Example:
   
+module overlapped_implication();
+  bit clk;
+  bit valid, ready;
+  
+  always #5 clk = ~clk;
+  
+  initial
+    begin
+      clk = 0;
+      
+      valid = 0; ready = 0;
+      #10; valid = 1; ready = 1;
+      #10; valid = 0; ready = 0;
+      #10; valid = 1; ready = 0;
+      #20; $finish();
+      
+    end
+        
+// overlapped implication assertion
+      
+      assert property (@(posedge clk)
+                      valid |-> ready
+                      ) $display("Pass at valid=%0b, ready=%0b", valid, ready);
+        else
+          $error("failed at valid = %0b ready = %0b", valid, ready);
+        
+        
+        initial
+          begin
+            $dumpfile("dump.vcd");
+            $dumpvars(0, overlapped_implication);
+          end
+endmodule
 
+        // Output 
+        # KERNEL: Error: testbench.sv (25): failed at valid = 1 ready = 0
 
 /*
 
