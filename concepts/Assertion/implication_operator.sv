@@ -94,6 +94,54 @@ a: assert property(p);
     *  if 'a' become then 'b' should also high in next clock cycle.
   */
 
+  // Example
+  // non overlap implication operator
+module nonoverlap_implication_operator();
+  bit clk;
+  bit req, grant;
+  
+//   clock generator
+  always #5 clk = ~clk;
+  
+//   Clock initialization
+  initial
+    begin
+      clk = 0;
+    end
+  
+//   pass fail condition
+  initial
+    begin
+      req = 0; grant = 0;
+      
+//       pass case
+      #10; req = 1; grant = 0;
+      #10; grant = 1;
+      
+//       rising edge reset case
+       #10; req = 0; grant = 0;
+      
+//       Fail case
+      #10; req = 1; grant = 0;
+      #10; grant = 0;
+      
+//       finish statement
+      #20; $finish();
+    end
+  
+//   Non-overlapping implication operation
+  assert property(@(posedge clk)
+                  $rose(req) |=> grant
+                 )
+    else
+      $error("fail");
+  
+  
+endmodule
+
+// Output
+# KERNEL: Error: testbench.sv (40): fail
+
 
 
 
