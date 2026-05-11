@@ -95,4 +95,51 @@ module got0_repetetion();
     else
       $error("Fail");
   
-endmodule    
+endmodule
+
+
+//   ============================== NON CONSECUTIVE REPETITION ===============================
+    // Syntax: a[=3];
+    /*
+      ->  In this a have to become high for 3 time, not continously, but 'a' must not high for more than 3 times.
+    */
+
+
+    // Go to reptetion
+module goto_repetetion();
+
+  bit clk;
+  bit a;
+  
+//   initializing clock
+  initial
+    begin
+      clk = 0;
+    end
+  
+//   Clock Generation
+  always #5 clk = ~clk;
+  
+//   Prepairing pass or fail condition
+  initial
+    begin
+      a = 0;
+      #10; a = 1;
+      #10; a = 0;
+      #10; a = 1;
+      #10; a = 0;
+      #10; a = 1;
+      
+//       Finish
+      #20; $finish();
+    end
+  
+  
+// Assert condition
+  assert property( @(posedge clk)
+                  a[=2]
+  )
+    else
+      $error("Fail");
+  
+endmodule
