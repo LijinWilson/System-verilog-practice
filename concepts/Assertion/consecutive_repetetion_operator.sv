@@ -51,3 +51,48 @@ endmodule
 
 // Output
 # KERNEL: Error: testbench.sv (39): Fail :)
+
+
+// ========================== Go To reptetion =============================
+//  In this case signal will match number of time, but not in continous cycle;
+    //  Syntax: a[->2]
+    // Here a will have to occur in 2 time, but not in continous cycle.
+
+//  --------------------------- Example --------------------------------
+// Go to reptetion
+module got0_repetetion();
+
+  bit clk;
+  bit a;
+  
+//   initializing clock
+  initial
+    begin
+      clk = 0;
+    end
+  
+//   Clock Generation
+  always #5 clk = ~clk;
+  
+//   Prepairing pass or fail condition
+  initial
+    begin
+      a = 0;
+      #10; a = 1;
+      #10; a = 0;
+      #10; a = 1;
+      #10; a = 0;
+      
+//       Finish
+      #20; $finish();
+    end
+  
+  
+// Assert condition
+  assert property( @(posedge clk)
+                  a[->2]
+  )
+    else
+      $error("Fail");
+  
+endmodule    
