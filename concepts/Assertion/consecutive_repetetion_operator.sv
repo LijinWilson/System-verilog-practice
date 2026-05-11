@@ -143,3 +143,10 @@ module goto_repetetion();
       $error("Fail");
   
 endmodule
+
+
+/*
+ a[*2]	2 continuous cycles
+a[->2]	at least 2 times
+a[=2]	exactly 2 times (but can ignore extra)   
+ */
