@@ -107,4 +107,7 @@
                         =>   why 16 bins? as size of addr is 4 bit so max values is 16 so...
                   *  logic en
                         =>   Here 2 bins will created.
+                  * The default maximum autobin we can creat is 64 not more than that, which means 2^6.
+                  * if it crosses more than 6 means 2^7, then value in each bin will increased by (2^7)/64 = 4 value per bin.
+                  * Or we can increase it by, we can the limit value. option.auto_bin_max = 256.
 */
