@@ -92,8 +92,8 @@
                            endgroup
       EXPLICIT BINS:
                   * bin b1 = {1, 2, 3}   => it willl create single bin for all this values.
-                  * bin b2[] = {[0:9], 11}   => I will creat 2 bin, if size is not defined in the case vector bin, it will creat each bin for each values. 
-                                                ie 0 to 9 in one bin and 11 to  2nd bin.
+                  * bin b2[] = {[0:9], 11}   => I will creat 11 bin, if size is not defined in the case vector bin, it will create each bin for each values. 
+                                                ie 0 to 9 in 10 bin and 11 in 11nth bin.
                   * bin b3[4] = {[0:7]}   => create 4 bin which equally divide all value inside the bin, b3[0] = 0 and 1, b3[1] = 2 and 3 and so on.
                                              If in the case any extra value came means 9 number can be divide equally in 4 boxes.
                                              so the extra value will added in the last bin so last bin contain 3 values
