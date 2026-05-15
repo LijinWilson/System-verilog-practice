@@ -152,13 +152,78 @@
 
 // ============================================ COVERAGE CONSTRUCTS ==============================================
 /*
-   -   IFF Construct
+   -   >>>>>> IFF Construct <<<<<<<
          -   Similar to if and else condition, based on the condition it will include and exclude the coverpoint inside the coverage group.
          -   Example:
                - covergroup cg;
-                     cp1: coverpoint data iff(!reset) {bins}
+                     cp1: coverpoint data iff(!reset) {bins for data}
                  endgroup: c_group
-         -   if the reset is 0, coverpoint data will collected inside the coverage report
+         -   if the reset is 0, coverpoint data will collected inside the coverage report.
+   
+   -   >>>>>> BINSOF Construct <<<<<<<
+         -   Bins of one coverpoint can be used another coverpoint without redefining them.
+         -   SYNTAX: binsof(<coverage_point>);
+               -   cp1: coverpoint v;
+                   cp2: coverpoint v {
+                                        bins v1 = {4, 5, 6};
+                                        bins v2 = {1, 2, 3};
+                                     }
+                   bins xy1 = binsof(cp1);
+                   bins xy2 = binsof(cp2,v2);
+
+   -   >>>>>> INTERSECT CONSTRUCT <<<<<<<
+         -   It is generally used with binsof construct which is used to include or exlude set of value in bins that intersect a set of values
+         -   SYNTAX: binsof(<coverage_points>) intersect (<range_of_values>);
+   
+   -   binsof(cp) intersect {r}
+         -   cp: coverpoint a {
+                 bins b1 = {0,1};
+                 bins b2 = {2,3};
+               }
+               
+            -   “From all bins of cp, pick only those bins that contain value r”
+             
+         -   !binsof(cp) intersect {r} 
+            -   Select all bins of cp that do NOT contain value r.
+
+         -   coveragegroup_value_range can have single value {5}, range of value {[10:20]} or an oper range
+               - open range: 
+                        -   {[$:50]}: cover all value from <= 50
+                        -   {[100:$]}: cover all value from >=100;
+         bit [7:0] v_a, v_b;
+
+         covergroup cg @(posedge clk);
+         
+           a: coverpoint v_a {
+             bins a1 = {[0:63]};
+             bins a2 = {[64:127]};
+             bins a3 = {[128:191]};
+             bins a4 = {[192:255]};
+           }
+         
+           b: coverpoint v_b {
+             bins b1 = {0};
+             bins b2 = {[1:84]};
+             bins b3 = {[85:169]};
+             bins b4 = {[170:255]};
+           }
+         
+           c: cross a, b {
+         
+             bins c1 = !binsof(a) intersect {[100:200]};
+             // 4 cross products: <a1,b1>, <a1,b2>, <a1,b3>, and <a1,b4>
+         
+             bins c2 = binsof(a.a2) || binsof(b.b2);
+             // 7 cross products:
+             // <a2,b1>, <a2,b2>, <a2,b3>, <a2,b4>,
+             // <a1,b2>, <a3,b2>, <a4,b2>
+         
+             bins c3 = binsof(a.a1) && binsof(b.b4);
+             // 1 cross product: <a1,b4>
+         
+           }
+         
+         endgroup
 */
 
 
