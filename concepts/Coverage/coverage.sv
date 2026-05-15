@@ -148,3 +148,20 @@
    -   if so try, it will generate an error.
    -   
 */
+
+
+// ============================================ COVERAGE CONSTRUCTS ==============================================
+/*
+   -   IFF Construct
+         -   Similar to if and else condition, based on the condition it will include and exclude the coverpoint inside the coverage group.
+         -   Example:
+               - covergroup cg;
+                     cp1: coverpoint data iff(!reset) {bins}
+                 endgroup: c_group
+         -   if the reset is 0, coverpoint data will collected inside the coverage report
+*/
+
+
+
+
+
