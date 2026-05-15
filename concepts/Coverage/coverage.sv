@@ -111,3 +111,40 @@
                   * if it crosses more than 6 means 2^7, then value in each bin will increased by (2^7)/64 = 4 value per bin.
                   * Or we can increase it by, we can the limit value. option.auto_bin_max = 256.
 */
+
+
+// ====================================================== CROSS COVERAGE ============================================================
+
+/*
+   -   A coverage group can specify the cross coverage between the variable or coverage points.
+   -   Cross coverage is specified using cross contruct.
+         - Syntax: <cross_label>: cross <coverage_points1, coverage_points2, etc... >;
+   -   If variable is in part of the cross coverage, SV will implicitly convert those variable to cross coverage.
+   -   Cross involves only coverage points.
+   -   if we want to use expressions inside the cross coverage, we have to define those explicitly as coverage points.
+   -   
+*/
+
+
+//---------------------- EXAMPLE ---------------------
+/*
+   bit [4:0] data addr;
+   bit [3:0] valid;
+   bit en;
+
+   covergroup c_group @(posedge clk);
+      cp1: coverpoint addr&en; (for cp1 10 bins will be created)
+      cp2: coverpoint data;(for cp2 2^6 = 64 bins will be created)
+
+      cp1_x_cp2: cross cp1, cp2; (cross coverage between 2 expression, 10 X 64 = 640 coverage bins will be created).
+      valid_x_cp2: cross valid, cp2; (2^4 X 10 = 160) cross bins will be created
+   endgroup
+*/
+
+
+/*
+   -   If any coverage points are defined a illegal, default or ignored. we cannot define the cross coverage of that coverage_points.
+   -   Cross coverage will only allowed in between the coverage point defined within the same coverage group.
+   -   if so try, it will generate an error.
+   -   
+*/
