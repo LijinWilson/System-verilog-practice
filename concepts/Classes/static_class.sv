@@ -1,4 +1,35 @@
-// Static classes
+// ----------------------- STATIC CLASS ----------------------------------
+/*
+-    Each instance of class have it's own variables
+        Consider class having cls1, cls2, cls3 instance. each having it's own variables.
+-    In Static class the variable are shared among the instances, shared SINGLE MEMORY LOCATION with all instances.
+- In static class we cannot use the keyword virtual
+- Static method CANNOT ACCESS non static members.
+- Non-Static methods CAN ACCESS Static members.
+-    Static members and method inside a class CAN ACCESS without creating objects
+
+*/
+
+// ========================== STATIC FUNCTION & FUNCTION STATIC ==========================
+//    -------------- STATIC FUNCTION ------------
+static function void fun();
+    // definitions
+endfunction
+/*
+    * can only ACCESS the STATIC variables not non-static
+    * THIS and SUPER keyword cannot be used.
+*/
+
+//     ----------------- FUNCTION STATIC -----------------
+function static void fun();
+	// definitions
+endfunction
+
+/*
+    * can ACCESS both static and non static variables
+    * THIS and SUPER keyword can be used.
+*/
+
 static <data_type> <property_name>;
 
 // It belongs to the class itself, NOT to individual objects.
