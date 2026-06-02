@@ -51,3 +51,9 @@ endmodule
 # KERNEL: Random variable generator rand = 0 | randc = 6 | Sum = 6
 # KERNEL: Random variable generator rand = 0 | randc = 3 | Sum = 3      
 */
+
+// =================== $URANDOM =================
+/*
+    - It will generate random unsigned 32 bit number.
+    
+*/
