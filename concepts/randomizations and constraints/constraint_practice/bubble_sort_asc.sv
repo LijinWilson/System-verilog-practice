@@ -1,4 +1,14 @@
+// Why we are using -----ref-------- keyword inside the function argument
+/*
+  1. Pass-by-Value vs. Pass-by-Reference (ref)
+By default, function arguments in SystemVerilog are passed by value (a copy is created).
 
+When you run function sort_asc(int arr[]);, the function creates a local copy of arr, sorts the local copy, and leaves the original arr in top untouched.
+
+Fix: Use the ref keyword so the function modifies the original array directly in place: function void sort_asc(ref int arr[]);.
+*/
+
+// if we dont use the ref keyword, the sorted array wont print, instead the original array will print.
 
 
 module top();
