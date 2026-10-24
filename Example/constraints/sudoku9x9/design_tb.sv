@@ -25,7 +25,7 @@ class sample;
 	// row element unique.
 	constraint rule_2{
 		foreach(sudoku_mat[i,j]){ // outerloop
-			foreach(sudoku_mat[, k]) { // innerloop - [k,j]
+			foreach(sudoku_mat[, k]) { // innerloop - [j, k]
 				(j != k) -> (sudoku_mat[i][j] != sudoku_mat[i][k]); // if j and k index are not same, value at that index also not same
 			}
 		}
