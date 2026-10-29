@@ -57,3 +57,21 @@ module top;
     end
   
 endmodule
+
+
+// =========== OUTPUT ============
+Compiler version X-2025.06-SP1_Full64; Runtime version X-2025.06-SP1_Full64;  Oct 29 13:27 2026
+C3
+C6
+C7
+C5
+C1
+C3
+c9
+C8
+C6
+C5
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 0 ns
+CPU Time:      0.540 seconds;       Data structure size:   0.0Mb
+Thu Oct 29 13:27:56 2026
