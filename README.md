@@ -150,4 +150,4 @@ If you have questions about the code, or just want to discuss Design Verificatio
 
 * **GitHub:** [@LijinWilson](https://github.com/LijinWilson)
 
-* **LinkedIn:** \[Your LinkedIn Profile Link\]
+* **LinkedIn:** \[https://www.linkedin.com/in/lijinwilson-vlsi/]
